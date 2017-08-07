@@ -55,6 +55,7 @@ func main() {
 		defer rc.Close()
 
 		filecontents, err := ioutil.ReadAll(rc)
+		errCheck(err)
 
 		_, err = f.Write(filecontents)
 		errCheck(err)
