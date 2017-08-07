@@ -26,6 +26,19 @@ func hasSuffixInArray(s string, arr []string) bool {
 
 func main() {
 
+	if len(os.Args) == 1 {
+		log.Fatal(`
+            No Zip file was provided.
+            Pass the path to a Zip-formatted file as an argument to use the program.
+
+            Usage:
+                ./image-extractor [zipFileName]
+
+            Examples:
+                ./image-extractor some-zip-file.zip
+                ./image-extractor some-word-doc.docx`)
+	}
+
 	zipFileName := os.Args[1]
 	newZipFileName := "media-" + zipFileName + ".zip"
 
