@@ -16,8 +16,9 @@ func errCheck(err error) {
 }
 
 func hasSuffixInArray(s string, arr []string) bool {
+	s = strings.ToLower(s)
 	for _, suf := range arr {
-		if strings.HasSuffix(strings.ToLower(s), strings.ToLower(suf)) {
+		if strings.HasSuffix(s, strings.ToLower(suf)) {
 			return true
 		}
 	}
