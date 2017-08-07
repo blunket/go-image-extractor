@@ -55,13 +55,11 @@ func main() {
 
 	for _, file := range r.File {
 
-		fname := file.FileHeader.Name
-
-		if !hasSuffixInArray(fname, []string{".png", ".jpg", ".jpeg", ".gif"}) {
+		if !hasSuffixInArray(file.Name, []string{".png", ".jpg", ".jpeg", ".gif"}) {
 			continue
 		}
 
-		f, err := w.Create(path.Base(fname))
+		f, err := w.Create(path.Base(file.Name))
 		errCheck(err)
 
 		rc, err := file.Open()
