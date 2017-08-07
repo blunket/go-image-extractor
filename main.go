@@ -2,7 +2,7 @@ package main
 
 import (
 	"archive/zip"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"path"
@@ -52,13 +52,12 @@ func main() {
 		errCheck(err)
 
 		rc, err := file.Open()
+		errCheck(err)
 		defer rc.Close()
 
-		filecontents, err := ioutil.ReadAll(rc)
+		_, err = io.Copy(f, rc)
 		errCheck(err)
 
-		_, err = f.Write(filecontents)
-		errCheck(err)
 	}
 
 }
