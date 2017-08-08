@@ -4,38 +4,19 @@ import (
 	"testing"
 )
 
-func TestA(t *testing.T) {
-	t.Log(`hasSuffixInArray("image1.png", ["jpeg", "png"]) should be true`)
-
-	expect := true
-
-	s, arr := "image1.png", []string{"jpeg", "png"}
-	if res := hasSuffixInArray(s, arr); res != expect {
-		t.Errorf("Expected: %b", expect)
-		t.Errorf("     Got: %b", res)
+func TestHasSuffixInArray(t *testing.T) {
+	testCases := []struct {
+		str  string
+		arr  []string
+		want bool
+	}{
+		{"image1.png", []string{"jpeg", "png"}, true},
+		{"image1.png", []string{"JPEG", "PNG"}, true},
+		{"image1.jpeg", []string{"asdf", "blahblah"}, false},
 	}
-}
-
-func TestCases(t *testing.T) {
-	t.Log(`hasSuffixInArray("image1.png", ["JPEG", "PNG"]) should be true`)
-
-	expect := true
-
-	s, arr := "image1.png", []string{"JPEG", "PNG"}
-	if res := hasSuffixInArray(s, arr); res != expect {
-		t.Errorf("Expected: %b", expect)
-		t.Errorf("     Got: %b", res)
-	}
-}
-
-func TestB(t *testing.T) {
-	t.Log(`hasSuffixInArray("image1.jpg", ["blahblah", "zzz"]) should be false`)
-
-	expect := false
-
-	s, arr := "image1.jpg", []string{"blahblah", "zzz"}
-	if res := hasSuffixInArray(s, arr); res != expect {
-		t.Errorf("Expected: %b", expect)
-		t.Errorf("     Got: %b", res)
+	for _, tc := range testCases {
+		if res := hasSuffixInArray(tc.str, tc.arr); res != tc.want {
+			t.Errorf("\nhasSuffixInArray(%s, %s)\nwant %t\ngot %t", tc.str, tc.arr, tc.want, res)
+		}
 	}
 }
