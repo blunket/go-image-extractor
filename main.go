@@ -33,11 +33,11 @@ func main() {
             Pass the path to a Zip-formatted file as an argument to use the program.
 
             Usage:
-                ./image-extractor [zipFileName]
+                ./go-image-extractor [zipFileName]
 
             Examples:
-                ./image-extractor some-zip-file.zip
-                ./image-extractor some-word-doc.docx`)
+                ./go-image-extractor some-zip-file.zip
+                ./go-image-extractor some-word-doc.docx`)
 	}
 
 	zipFileName := os.Args[1]
