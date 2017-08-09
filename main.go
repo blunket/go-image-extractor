@@ -2,6 +2,7 @@ package main
 
 import (
 	"archive/zip"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -54,14 +55,28 @@ func main() {
 	w := zip.NewWriter(newZip)
 	defer w.Close()
 
+	// store list of files written in case of duplicate names
+	m := make(map[string]int)
+
 	for _, file := range r.File {
 
-		if !hasSuffixInArray(file.Name, []string{".png", ".jpg", ".jpeg", ".gif"}) {
+		fname := path.Base(file.Name)
+
+		if !hasSuffixInArray(fname, []string{".png", ".jpg", ".jpeg", ".gif"}) {
 			continue
 		}
 
-		f, err := w.Create(path.Base(file.Name))
+		for m[fname] != 0 {
+			suffix := path.Ext(fname)
+			m[fname] = m[fname] + 1
+			trimmed := strings.TrimSuffix(fname, suffix)
+			fname = fmt.Sprintf("%s%d%s", trimmed, m[fname], suffix)
+			fmt.Println("warning: conflicting filename changed")
+		}
+
+		f, err := w.Create(fname)
 		errCheck(err)
+		m[fname] = 1
 
 		rc, err := file.Open()
 		errCheck(err)
