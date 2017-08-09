@@ -50,7 +50,6 @@ func main() {
 
 	newZip, err := os.Create(newZipFileName)
 	errCheck(err)
-	defer newZip.Close()
 
 	w := zip.NewWriter(newZip)
 	defer w.Close()
@@ -87,4 +86,9 @@ func main() {
 
 	}
 
+	if err := newZip.Close(); err != nil {
+		log.Fatal("Could not close new Zip file")
+	} else {
+		fmt.Println("Done!\nOutput:", newZipFileName)
+	}
 }
